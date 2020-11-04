@@ -9,10 +9,10 @@ After a certain understanding, you can use poseNet for many interesting front-en
 ## Table of Contents
  * [1. Project Installation](#y1)
  * [2. Instructions for Use](#y2) 
- * [3. Project Instructions](#y3) 
-    * [3.1. Main Instructions](#y31) 
+ * [3. Project Description](#y3) 
+    * [3.1. Main Description](#y31) 
     * [3.2 Project structure](#y32) 
-    * [3.3. Implementation of counting algorithm](#y33) 
+    * [3.3. Implementation of action counting algorithm](#y33) 
     * [3.4. Replaceable poseModel](#y34) 
     * [3.5. Manual for model building state](#y35) 
 * [4. Future plans](#y4)
@@ -62,7 +62,7 @@ The program is mainly divided into two states, one is the "workout state" with p
  
  As can be seen from the figure, there is a classification model called brain, and another two-classification model called poseModel. The output of the brain classification model is used to issue commands. For example, When I raise my right hand, I enter the'training' state, and when I raise my left hand, I pause training. Of course these rules can defined by youself, you can also create your own way. [(Refer to the poseNet series of videos of The Coding Train)](https://www.youtube.com/watch?v=OIo-DIOkNVg)
  
- <h3 id="y33">   3.3. Implementation of counting algorithm </h3>
+ <h3 id="y33">   3.3. Implementation of action counting algorithm </h3>
 
  The important thing is the poseModel, whict is a two-category model. Although this model is simple, it is the core part of the action counting function. In simple terms, the counting algorithm is: from posture one to posture two, the count increases by 0.5, posture two changes back to posture one, and the count increases by 0.5.
 
@@ -75,7 +75,7 @@ The program is mainly divided into two states, one is the "workout state" with p
  <h3 id="y34">  3.4. Replaceable poseModel </h3>
  
  The two-category poseModel model loaded by default, which can  classify the two states of the squat action, so as to realize the counting function. In this case, if I do push-ups or other actions, the model may not be able to make a correct judgment.
- What should I do if I have to change the movement to count? At this time, you can train a new poseModel model (decompose the push-up action into two states for classification training) and then replace the original poseModel. Thanks to the ml5.js mechanical learning framework, the model building training process can be extremely simplified. We divide the model training into 3 stages. 
+ What should I do if I have to change the movement to count? At this time, we need a replaceable poseModel. You can train a new poseModel model (decompose the push-up action into two states for classification training) and then replace the original poseModel. Thanks to the ml5.js mechanical learning framework, the model building training process can be extremely simplified. We divide the model training into 3 stages. 
  * Phase 1: The data collection phase of the action state 1 (POSE1) 
  * Phase 2: The data collection phase of the action state 2 (POSE2) 
  * Phase 3: The model training phase 
