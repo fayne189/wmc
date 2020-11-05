@@ -35,7 +35,7 @@
 
  3. 首先默认会加载一个poseModel模型，可以用来计数做了几个深蹲。
  4. 根据画面左上角的提示，可以同摆不同的姿势来下达相应的指示，能下达指令的姿势是提前定义好的，是训练好的brain模型的输出。
- 5. 若想自己实现brain分类模型，可参考下面The Coding Train的[链接]((https://www.youtube.com/watch?v=OIo-DIOkNVg))
+ 5. 若想自己实现brain分类模型，可参考下面The Coding Train的[链接](https://www.youtube.com/watch?v=OIo-DIOkNVg)
  6. 训练poseModel阶段的使用说明可参考[下方说明](#35)
  <h2 id="3">3. 项目说明</h2>
 
