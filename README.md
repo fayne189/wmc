@@ -22,7 +22,11 @@
 
 <h2 id="1">1. 项目安装</h2>
  
- 1. 使用npm安装相关依赖后使用 npm start的方式
+ 1. 进入poseNet_git文件夹目录 cd poseNet_git
+ 
+ 2. 安装相关依赖 npm install
+ 
+ 3. 使用npm安装相关依赖后使用 npm start的方式
 
 <h2 id="2">1. 使用说明</h2> 
 程序主要分为两个状态，一是加载了poseModel的‘可进行运动状态’，二是没有加载poseModel的‘需训练poseModel模型状态’。简单来说如果加载了poseModel就能直接开始动作计数功能，没有poseModel则需要先训练一个分类模型才能进行动作计数功能。
