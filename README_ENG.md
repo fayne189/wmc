@@ -20,9 +20,13 @@ After a certain understanding, you can use poseNet for many interesting front-en
 <h2 id=y1> 1. Project installation  </h2>
 
 
-1. Use -npm install  to install related dependencies then, 
+1. git clone git@github.com:neng5201314/teamPro_posenet.git
 
-    npm start 
+2. cd poseNet_git
+
+3. npm install
+
+4. npm start
 
 <h2 id=y2> 2. Instructions for Use  </h2>
 
