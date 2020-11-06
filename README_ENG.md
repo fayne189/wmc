@@ -42,7 +42,7 @@ The program is mainly divided into two states, one is the "workout state" with p
 
 4. According to the prompt on the upper left corner of the screen, you can give corresponding instructions in different postures. The posture that can give instructions is defined in advance and is the output of the trained model called 'brain'. 
 
-5. If you want to implement the 'brain' classification model by yourself, please refer to the [link]((https://www.youtube.com/watch?v=OIo-DIOkNVg)) of The Coding Train  
+5. If you want to implement the 'brain' classification model by yourself, please refer to the [link](https://www.youtube.com/watch?v=OIo-DIOkNVg) of The Coding Train  
 
 6. Instructions on buliding poseModel state, please refer to [3.5 Manual for model building state](#35)
 
