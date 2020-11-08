@@ -125,6 +125,7 @@ function brainLoaded() {
 function poseModelLoaded() {
     console.log('pose classification ready!');
     //    trainingModelState = false;
+    modelIsTrained = true;
     phase = 3;
     phaseSign = 'Do phase3'
     classifyPose();
