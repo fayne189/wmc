@@ -29,7 +29,6 @@ workoutRecord = {
 }
 
 //判断是否有需要进入构造poseModel阶段
-let trainingModelState = true;
 
 
 //是否开始运动
@@ -64,13 +63,17 @@ let RightHandRaised = false;
 let LeftHandRaised = false;
 let TPose = false;
 
-
+let button;
+let videoIsPlaying = false;
 
 function setup() {
     createCanvas(640, 480);
-    video = createCapture(VIDEO);
+    video = createCapture(VIDEO, webCamload);
     angleMode(DEGREES);
     video.hide();
+    //button for weCam open
+    button = createButton('stop');
+    button.mousePressed(weCamOnOrOff);
     let options_poseNet = {
         //        detectionType : 'single',
         //        architecture : 'ResNet50',
@@ -86,7 +89,7 @@ function setup() {
         debug: true
     }
     brain = ml5.neuralNetwork(options);
-    newNNW();
+    poseModel = newNNW();
 
     //   LOAD PRETRAINED MODEL
     const modelInfo = {
@@ -108,6 +111,23 @@ function setup() {
     //    brain.loadData('skeleton_data/2020-10-28_19-24-34.json', dataReady);
 }
 
+function webCamload() {
+    videoIsPlaying = true;
+    console.log('video is playing');
+}
+
+function weCamOnOrOff() {
+    if (videoIsPlaying) {
+        video.pause();
+        button.html('start');
+        videoIsPlaying = false;
+    } else {
+        video.play();
+        button.html('stop');
+        videoIsPlaying = true;
+    }
+}
+
 function getTimeUpSeconds(mls) {
     /*计时器*/
     now = new Date();
@@ -118,13 +138,11 @@ function getTimeUpSeconds(mls) {
 
 function brainLoaded() {
     console.log('brain ready!');
-    //    trainingModelState = true;
     classifyPose();
 }
 
 function poseModelLoaded() {
     console.log('pose classification ready!');
-    //    trainingModelState = false;
     modelIsTrained = true;
     phase = 3;
     phaseSign = 'Do phase3'
@@ -133,24 +151,28 @@ function poseModelLoaded() {
 
 
 function classifyPose() {
-    /*姿势识别*/
-    if (pose) {
-        inputs = [];
-        for (let i = 0; i < pose.keypoints.length; i++) {
-            let x = pose.keypoints[i].position.x;
-            let y = pose.keypoints[i].position.y;
-            inputs.push(x);
-            inputs.push(y);
-        }
-        if (!collectingState && timeUpSeconds < 0) {
-            brain.classify(inputs, gotResult);
-        }
-        //        workoutState = true;
-        if (!trainingModelState && workoutState) {
-            poseModel.classify(inputs, gotResult2);
-        }
-        setTimeout(classifyPose, 100);
+    if (videoIsPlaying) {
+        /*姿势识别*/
+        if (pose) {
+            inputs = [];
+            for (let i = 0; i < pose.keypoints.length; i++) {
+                let x = pose.keypoints[i].position.x;
+                let y = pose.keypoints[i].position.y;
+                inputs.push(x);
+                inputs.push(y);
+            }
+            if (!collectingState && timeUpSeconds < 0) {
+                brain.classify(inputs, gotResult);
+            }
+            //        workoutState = true;
+            if (workoutState) {
+                poseModel.classify(inputs, gotResult2);
+            }
+            setTimeout(classifyPose, 100);
 
+        } else {
+            setTimeout(classifyPose, 100);
+        }
     } else {
         setTimeout(classifyPose, 100);
     }
@@ -221,7 +243,9 @@ function newNNW() {
         task: 'classification',
         debug: true
     }
-    poseModel = ml5.neuralNetwork(options2);
+    phase = 1;
+    phaseSign = 'Do phase1'
+    return ml5.neuralNetwork(options2);
 }
 
 
@@ -272,7 +296,6 @@ const phase3 = {
     r: function () {
         console.log(poseModel.neuralNetwork.isTrained);
         if (modelIsTrained) {
-            trainingModelState = false;
             workoutState = true;
         }
     },
@@ -282,12 +305,10 @@ const phase3 = {
         }
     },
     t: function () {
-        newNNW();
-        phase = 1;
-        phaseSign = 'Do phase1'
+        weCamOnOrOff();
     }
-
 }
+
 
 function doPhase(ph) {
     phaseDo = ph;
@@ -306,20 +327,11 @@ function doPhase(ph) {
 }
 
 
-function doComment() {
+function doCommand() {
     if (workoutState) {
-        if (LeftHandRaised) {
-            LeftHandRaised = false;
-            workoutState = false;
-        }
-    } else {
-        if (RightHandRaised) {
-            RightHandRaised = false;
-            workoutState = true;
-        }
         if (TPose) {
             TPose = false;
-            trainingModelState = true;
+            workoutState = false;
             phase = 3;
             phaseSign = 'Do Phase3'
         }
@@ -331,7 +343,7 @@ function gotResult(error, results) {
     if (results[0].confidence > 0.75) {
         poseLabel = results[0].label.toUpperCase();
         poseLabelMonitor(poseLabel);
-        if (trainingModelState) {
+        if (!workoutState) {
             if (phase == 1) {
                 doPhase(phase1);
             }
@@ -342,7 +354,7 @@ function gotResult(error, results) {
                 doPhase(phase3);
             }
         } else {
-            doComment();
+            doCommand();
         }
     } else {
         console.log('Can not recognize your pose, Please make sure you appear on the screen')
@@ -467,7 +479,7 @@ function drawDubug() {
     noStroke();
     textAlign(LEFT, TOP);
     textSize(20);
-    if (trainingModelState) {
+    if (!workoutState) {
         if (phase == 3) {
             text("Instruction Manu", 10, 5);
             text("Raise Right Hand: WorkOut Start", 10, 26);
@@ -496,23 +508,22 @@ function drawDubug() {
         }
 
     } else {
-        if (workoutState) {
-            text("Instruction Manu", 10, 5);
-            text("Raise Left Hand: Workout Pause", 10, 26);
-            textAlign(CENTER, TOP);
-            textSize(32);
-            text("Count: " + motionCount / 2, width / 2, 5);
-            if (pose12Label) {
-                fill(255, 0, 255);
-                textAlign(CENTER, CENTER);
-                textSize(64);
-                text(pose12[pose12Label], width / 2, height / 2 + 100)
-            }
-        } else {
-            text("Instruction Manu", 10, 5);
-            text("Raise Right Hand: Workout Start", 10, 26);
-            text("T Pose: Train another Model", 10, 47);
+        text("Instruction Manu", 10, 5);
+        text("T POSE: Workout Pause", 10, 26);
+        textAlign(CENTER, TOP);
+        textSize(32);
+        text("Count: " + motionCount / 2, width / 2, 5);
+        if (pose12Label) {
+            fill(255, 0, 255);
+            textAlign(CENTER, CENTER);
+            textSize(64);
+            text(pose12[pose12Label], width / 2, height / 2 + 100)
         }
+        // else {
+        //     text("Instruction Manu", 10, 5);
+        //     text("Raise Right Hand: Workout Start", 10, 26);
+        //     text("T Pose: Train another Model", 10, 47);
+        // }
     }
     if (poseLabel && !collectingState) {
         fill(255, 0, 255);
@@ -523,9 +534,11 @@ function drawDubug() {
 }
 
 function draw() {
-    drawVideoAndPose();
-    if (timeUpSeconds > 0) {
-        drawTimeUpSign();
+    if (videoIsPlaying) {
+        drawVideoAndPose();
+        if (timeUpSeconds > 0) {
+            drawTimeUpSign();
+        }
+        drawDubug();
     }
-    drawDubug();
 }
