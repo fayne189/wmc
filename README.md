@@ -8,6 +8,8 @@
  同时搭配p5.js绘图框架能很好的展示视频图像和绘制poseNet的人体骨架结果。
  [示例代码](https://editor.p5js.org/neng5201314/sketches/mAJiOvseZ)
 你可以随意修改，不过代码有点乱就是了。
+
+[try demo here](https://editor.p5js.org/neng5201314/full/mAJiOvseZ) make sure your whole body show on the screen.
  ## 目录
  * [1. 项目安装](#1)
 
