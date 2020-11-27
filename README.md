@@ -6,10 +6,10 @@
  对poseNet有一定了解后就可以利用poseNet进行很多有意思的前端开发。本项目也是其中之一。
  其中使用到的ml5.js库是基于Tensorflow.js的，能在浏览器上进行机器学习的相关开发的开源框架。
  同时搭配p5.js绘图框架能很好的展示视频图像和绘制poseNet的人体骨架结果。
- [示例代码](https://editor.p5js.org/neng5201314/sketches/mAJiOvseZ)
+ [示例代码](https://editor.p5js.org/neng5201314/sketches/ptEcLMvXY)
 你可以随意修改，不过代码有点乱就是了。
 
-[try demo here](https://editor.p5js.org/neng5201314/full/mAJiOvseZ) make sure your whole body show on the screen.
+[try demo here](https://editor.p5js.org/neng5201314/present/ptEcLMvXY) make sure your whole body show on the screen.
  ## 目录
  * [1. 项目安装](#1)
 
