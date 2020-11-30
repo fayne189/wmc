@@ -52,18 +52,14 @@ class Hands {
     get_user_hit_menu_block(menu) { // 获取用户点击菜单栏
         for (let menu_block of menu.menu_blocks) { // 遍历菜单栏，若点击则增加菜单点击数
             let result = this.hits_menu_block(menu_block); // 确认点击哪个菜单栏
-            console.log(result);
             if (result) { //点击成功
                 let menu_name = result[0];
                 let hit_count = result[1];
                 if (menu.get_hit_menu_block_name() == menu_name) { //是否是之前选中的菜单栏
-                    console.log(menu.get_hit_menu_block_name());
                     menu.set_hit_menu_block_hit_count(hit_count);
-                    console.log(menu.hit_menu_block.hit_menu_count);
                 } else {
                     menu_block.reset_hit_count(); ////重置菜单栏点击数
                     menu.set_hit_menu_block(menu_name); //选中菜单栏 or 重新选择菜单栏
-                    console.log(menu.get_hit_menu_block_name());
                 }
             } else {
                 menu_block.reset_hit_count(); //重置菜单栏点击数

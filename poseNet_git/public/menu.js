@@ -1,10 +1,16 @@
 class Menu {
-    constructor(p5) {
+    constructor(p5, x, y, d) {
         this.p5 = p5;
-        this.rgb;
-        this.x = 320;
-        this.y = 100;
-        this.d = 120;
+        if (this.rgb == undefined) {
+            this.rgb = {
+                'r': 0,
+                'g': 255,
+                'b': 0
+            }
+        };
+        this.x = x;
+        this.y = y;
+        this.d = d;
         this.hit_count = 0;
         this.menu_blocks = [];
         this.is_menu_open;
@@ -12,18 +18,23 @@ class Menu {
             'name': '',
             'hit_count': 0
         };
+        this.visible = true;
     }
     show() {
-
-        let a = this.p5.map(this.hit_count, 0, 50, 50, 255, true);
-        this.p5.fill(this.rgb.r, this.rgb.g, this.rgb.b, a);
-        this.p5.noStroke();
-        this.p5.ellipse(this.x, this.y, this.d / 2, this.d / 2);
+        if (this.visible) {
+            let a = this.p5.map(this.hit_count, 0, 50, 50, 255, true);
+            this.p5.fill(this.rgb.r, this.rgb.g, this.rgb.b, a);
+            this.p5.noStroke();
+            this.p5.ellipse(this.x, this.y, this.d / 2, this.d / 2);
+        }
         if (this.is_menu_open) {
             for (let i of this.menu_blocks) {
                 i.show();
             }
         }
+    }
+    hide() {
+        this.visible = false;
     }
 
     add_menu_block(block) {
@@ -50,6 +61,12 @@ class Menu {
     reset_hit_count() {
         this.hit_count = 0;
     }
+    set_color(rgb) {
+        this.rgb = rgb;
+    }
+    set_menu_open() {
+        this.is_menu_open = true;
+    }
     set_menu_blocks(list_menu_blocks) {
         for (let i = 0; i < list_menu_blocks.length; i++) {
             //setMenu
@@ -61,14 +78,12 @@ class Menu {
             if (i == 0) { // close_menu
                 x = 10;
                 y = 10;
-                rh = rh * (list_menu_blocks.length - 1);
+                rh = rh;
             }
             this.add_menu_block(new MenuBlock(this.p5, menu_name, x, y, rw, rh))
         }
     }
 
 
-    set_color(rgb) {
-        this.rgb = rgb;
-    }
+
 }

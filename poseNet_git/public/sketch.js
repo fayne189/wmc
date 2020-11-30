@@ -3,6 +3,7 @@
 let poseNet;
 let pose;
 let skeleton;
+let frames = 30;
 
 
 var test = function (p5) {
@@ -11,8 +12,8 @@ var test = function (p5) {
     cav.parent('center');
     camera = new Camera(p5);
     video = camera.createCamera();
-    // meneger
-    meneger = new Meneger(p5);
+    // manager
+    manager = new Manager(p5);
     // poseNet
     let options_poseNet = {
       inputResolution: 257,
@@ -20,7 +21,8 @@ var test = function (p5) {
     }
     poseNet = ml5.poseNet(video, options_poseNet, () => console.log(poseNet));
     poseNet.on('pose', gotPoses)
-    meneger.setCamera(camera);
+    manager.setCamera(camera);
+    p5.frameRate(frames);
   }
 
   p5.draw = function () {
@@ -49,7 +51,7 @@ var test = function (p5) {
       }
       p5.pop();
       //everything after camera on
-      meneger.watch(pose);
+      manager.watch(pose);
     } else {
       p5.clear();
     }
@@ -407,11 +409,11 @@ function gotPoses(poses) {
 //       phaseSign = 'Do Phase3';
 //       dataCollected = false;
 //       poseModel.normalizeData();
-//       poseModel.train({
-//         epochs: 20
-//       }, function (epoch, loss) {
-//         console.log('epoch: ' + epoch + ', loss: ' + loss.loss);
-//       }, poseModelFinished);
+      // poseModel.train({
+      //   epochs: 20
+      // }, function (epoch, loss) {
+      //   console.log('epoch: ' + epoch + ', loss: ' + loss.loss);
+      // }, poseModelFinished);
 
 //     }
 //   },

@@ -1,0 +1,34 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+.wapper {
+  display: flex;
+  margin:auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: black;
+  color: pink;
+  /* width:1200;
+  height:640; */
+}
+
+
+.box{
+  background-color:black;
+}
+.row {
+  display: flex;
+  flex-direction:row;
+  margin:auto;
+  align-items: center;
+  justify-content: round;
+}
+
