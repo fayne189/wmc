@@ -18,7 +18,6 @@ class Camera {
         this.video = this.p5.createCapture(this.p5.VIDEO, () => {
             this.webCamload(this.p5)
         });
-        console.log(this.video);
         // this.video.size(this.p5.width,this.p5.height);
         this.video.hide()
         return this.video

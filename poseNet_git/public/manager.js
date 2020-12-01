@@ -1,6 +1,6 @@
 class Manager {
     constructor(p5) {
-        this.state = 'START' // "MAIN", "START" , "TRAIN A MODEL", "data_collecting", "CLOSE MENU", "EXIT" ,"COUNTDOWN"
+        this.state = 'MAIN' // "MAIN", "START" , "TRAIN A MODEL", "data_collecting", "CLOSE MENU", "EXIT" ,"COUNTDOWN"
         this.p5 = p5; //instance mode
         this.inputs; // poseNet output
         this.camera; //camera
@@ -11,6 +11,12 @@ class Manager {
         this.cd; //countdown
         this.poseModel_manager = new PoseModelManager(p5, this.hands);
         this.motion_name = 'squat';
+
+        this.button = p5.createButton('send');
+        // this.button.position(0, 580);
+        this.button.mousePressed(() => {
+            this.send_workout_records();
+        });
     }
     setMotionName(name) {
         this.motion_name = name;
@@ -24,7 +30,20 @@ class Manager {
     }
 
     send_workout_records() {
-        //get data
+        // axios.post('/auth/isLoggedIn', ()=> {
+        //     console.log('login id');
+        //     console.log(req);
+        // });
+        
+        let data = this.pose_model_starter.getData();
+        console.log(data);
+        axios.post('/auth/post', data)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     change_state_and_reset(menu) { //改变状态然后重置菜单
@@ -197,6 +216,8 @@ class Manager {
             this.state = this.last_state;
         }
         if (this.state == "EXIT") {
+            this.pose_model_starter.setEndDate(new Date());
+            this.send_workout_records();
             this.state = "MAIN"
             this.camera.camera_off();
         }

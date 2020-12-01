@@ -49,6 +49,7 @@ class PoseModelStarter {
       name: this.name,
       count: this.motion_count,
     }
+    return data;
   }
 
   getPoseModel() {
