@@ -144,35 +144,55 @@ exports.logout = async (req, res) => {
     res.status(200).redirect('/');
 }
 
-// workout record
-exports.post = (req, res) => {
-    console.log('cookie');
-    console.log(req.cookies);
-    console.log(req.body);
+// // workout record
+// exports.post = async (req, res) => {
+//     console.log('cookie');
+//     console.log(req.cookies);
+//     if (req.cookies.jwt) {
     
-    // const {id} = req.cookie 
-    const {
-        startDate,
-        endDate,
-        motion_name:name,
-        count,
-    } = req.body;
-    console.log(motion_name);
+//         try {
 
-    // db.query('UPDATE INTO users SET ?', {
-    //     id: id,
-    //     startDate: startDate,
-    //     endDate: endDate,
-    //     motion_name:motion_name,
-    //     count:count
-    // }, (error, results) => {
-    //     if (error) {
-    //         console.log(error);
-    //     } else {
-    //         console.log(results);
-    //         return res.render('register', {
-    //             message: '회원가입이 완료되었습니다.'
-    //         });
-    //     }
-    // })
-}
+//             //1)verify the token
+//             const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
+
+//             console.log(decoded);
+
+//             //2)check if the user still exists
+//             db.query('SELECT * FROM users WHERE id = ?', [decoded.id], (error, result) => {
+//                 console.log(result);
+
+//                 if (!result) {
+//                     console.log('no log in user')
+//                 }
+//                 req.user = result[0];
+//                 let email = req.user[1];
+//                 console.log(email);
+//                 // console.log(req.body);
+
+//                 const {
+//                     startDate,
+//                     endDate,
+//                     name: motion_name,
+//                     count,
+//                 } = req.body;
+//                 console.log(name);
+
+//                 db.query('UPDATE users SET data=?, motionCount=?, motionName=?', {
+//                     startDate: startDate,
+//                     // endDate: endDate,
+//                     count: count,
+//                     motion_name: motion_name,
+//                 }, (error, results) => {
+//                     if (error) {
+//                         console.log(error);
+//                     } else {
+//                         console.log(results);
+//                     }
+//                 })
+
+//             });
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     } else {}
+// }

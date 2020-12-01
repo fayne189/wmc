@@ -3,7 +3,7 @@
 let poseNet;
 let pose;
 let skeleton;
-let frames = 30;
+let frameRate = 30;
 
 
 var test = function (p5) {
@@ -23,7 +23,7 @@ var test = function (p5) {
     poseNet = ml5.poseNet(video, options_poseNet, () => console.log(poseNet));
     poseNet.on('pose', gotPoses)
     manager.setCamera(camera);
-    p5.frameRate(frames);
+    p5.frameRate(frameRate);
   }
 
   p5.draw = function () {

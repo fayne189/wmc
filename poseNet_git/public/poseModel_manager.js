@@ -49,13 +49,14 @@ class PoseModelManager {
         //     weights: 'poseModel/model1/model.weights.bin',
         // }
         this.poseModel.load(this.trained_poseModel_list[0].modelInfo, () => {
-            this.isTrained = this.poseModel.neuralNetwork.isTrained;
+            if (this.poseModel.neuralNetwork.isTrained) {
+                this.isTrained = true;
+            }
             this.model_list.push({
                 name: this.trained_poseModel_list[0].name,
                 poseModel: this.poseModel
             });
             this.poseModel = ''; //情况临时poseModel
-            console.log(this.model_list);
         })
     }
     select_poseModel(name) {
@@ -114,11 +115,12 @@ class PoseModelManager {
         }
     }
     getLastModel() {
-        return this.model_list[this.model_list.length - 1];
+        let last = this.model_list[this.model_list.length - 1];
+        console.log(last);
+        return last
     }
 
     show() {
-        this.menu1.show();
         this.menu2.show();
     }
     new_count_down(sec) {
@@ -127,7 +129,7 @@ class PoseModelManager {
             border_colour: this.p5.color(255),
             fill_colour: this.p5.color(0, 255, 0, 50)
         }
-        this.cd = new Timer(this.p5, this.p5.width / 2, this.p5.height / 2, frames, sec, options);
+        this.cd = new Timer(this.p5, this.p5.width / 2, this.p5.height / 2, frameRate, sec, options);
     }
     only_show_menu_blocks(menu_list) { //open menu blocks, quit or next
         if (!this.menu2) {
@@ -145,7 +147,6 @@ class PoseModelManager {
                 if (result == menu_list[1]) {
                     this.do++;
                     this.menu2 = '';
-
                 }
             }
         }
@@ -158,7 +159,7 @@ class PoseModelManager {
             if (this.do == 1) { // let user have a ready time to pose
                 this.p5.text('POSE START TO COLLECT AFTER', this.p5.width / 2, 200);
                 if (!this.cd) {
-                    this.new_count_down(1); //准备时间
+                    this.new_count_down(4); //准备时间
                     this.cd.start();
                 } else {
                     this.cd.update();
@@ -172,7 +173,7 @@ class PoseModelManager {
             if (this.do == 2) { // do data collecting 
                 this.p5.text('POSE COLLECTING', this.p5.width / 2, 200);
                 if (!this.cd) {
-                    this.new_count_down(1); //收集时间
+                    this.new_count_down(5); //收集时间
                     this.cd.start();
                 } else {
                     let target = ['' + this.phase];
@@ -194,7 +195,6 @@ class PoseModelManager {
         if (this.do == 4) {
             this.do = 0;
             this.phase++;
-            console.log('phase change' + this.phase);
         }
         if (this.phase == 3) {
             return 'QUIT';
@@ -230,7 +230,6 @@ class PoseModelManager {
             }
             this.train_started = true;
             if (this.isTrained) {
-                this.reset();
                 return 'FINISH';
             }
         }

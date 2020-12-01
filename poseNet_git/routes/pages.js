@@ -27,7 +27,6 @@ router.get('/profile',authController.isLoggedIn, (req,res)=>{
     }else {
         res.redirect('/login');
     }
-   
 });
 
 module.exports = router;

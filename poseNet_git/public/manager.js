@@ -1,6 +1,6 @@
 class Manager {
     constructor(p5) {
-        this.state = 'MAIN' // "MAIN", "START" , "TRAIN A MODEL", "data_collecting", "CLOSE MENU", "EXIT" ,"COUNTDOWN"
+        this.state = 'MAIN' // "MAIN", "START" , "TRAIN A MODEL", "CLOSE MENU", "EXIT" ,"COUNTDOWN", "PAUSE"
         this.p5 = p5; //instance mode
         this.inputs; // poseNet output
         this.camera; //camera
@@ -34,28 +34,36 @@ class Manager {
         //     console.log('login id');
         //     console.log(req);
         // });
-        
+
         let data = this.pose_model_starter.getData();
         console.log(data);
         axios.post('/auth/post', data)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     change_state_and_reset(menu) { //改变状态然后重置菜单
         this.last_state = this.state; //记录上一个state
         this.state = menu.hit_menu_block.name // change state
+        if (this.state == 'MAIN') {
+            this.pose_model_starter.reset();
+        }
+        console.log(this.last_state + ' to ' + this.state);
+        if ((this.last_state == 'START' && this.state == 'PAUSE') ||
+            (this.last_state == 'PAUSE' && this.state == 'START')) {
+            this.pose_model_starter.stateSwitch = !this.pose_model_starter.stateSwitch;
+            this.pose_model_starter.menu = '';
+        }
         menu.reset(); //reset menu
         console.log('state change to ' + this.state);
         menu.hit_menu_block = {
             'name': '',
             'hit_count': 0
         }; //记下被点击的菜单
-        // this.result_from_brain = '';
         menu.is_menu_open = false;
     }
 
@@ -124,19 +132,20 @@ class Manager {
                 }
             }
             if (!this.pose_model_starter.menu) {
-                let name_menu_block = ['CLOSE MENU', 'MAIN', 'EXIT'];
+                let left_menu_block = ['MAIN', 'CLOSE MENU']
+                let right_menu_block = ['PAUSE', 'EXIT'];
                 let rgb = {
-                    'r': 255,
-                    'g': 0,
+                    'r': 0,
+                    'g': 255,
                     'b': 0
                 }
                 this.pose_model_starter.menu = new Menu(this.p5, 320, 0, 300); // Menu
                 this.pose_model_starter.menu.set_color(rgb);
-                this.pose_model_starter.menu.set_menu_blocks(name_menu_block);
+                this.pose_model_starter.menu.set_menu_blocks(left_menu_block, right_menu_block);
             }
             if (this.pose_model_starter.poseModel && this.pose_model_starter.menu) { //menu created and poseModel loaded
                 this.pose_model_starter.menu.show(); //show menu
-                this.p5.fill(255, 0, 0);
+                this.p5.fill(0, 255, 0);
                 this.p5.textSize(40);
                 this.p5.textStyle(this.p5.BOLD);
                 this.p5.textAlign(this.p5.CENTER);
@@ -145,26 +154,54 @@ class Manager {
                     this.change_state_and_reset(this.pose_model_starter.menu);
                 }
                 if (this.pose_model_starter.poseModel) {
+                    this.pose_model_starter.show();
                     this.pose_model_starter.classify(this.inputs);
                 }
+            }
+        }
+        if (this.state == "PAUSE") {
+            if (!this.pose_model_starter.menu) {
+                let left_menu_block = ['MAIN', 'CLOSE MENU']
+                let right_menu_block = ['START', 'EXIT'];
+                let rgb = {
+                    'r': 255,
+                    'g': 0,
+                    'b': 0
+                }
+                this.pose_model_starter.menu = new Menu(this.p5, 320, 0, 300); // Menu
+                this.pose_model_starter.menu.set_color(rgb);
+                this.pose_model_starter.menu.set_menu_blocks(left_menu_block, right_menu_block);
+            }
+            if (this.pose_model_starter.poseModel && this.pose_model_starter.menu) { //menu created and poseModel loaded
+                this.pose_model_starter.menu.show(); //show menu
+                this.p5.fill(255, 0, 0);
+                this.p5.textSize(40);
+                this.p5.textStyle(this.p5.BOLD);
+                this.p5.textAlign(this.p5.CENTER);
+                this.p5.text('PAUSE', this.p5.width / 2, 40);
+                if (this.hands.watch(this.pose_model_starter.menu)) {
+                    this.change_state_and_reset(this.pose_model_starter.menu);
+                }
+                this.pose_model_starter.show();
             }
         }
         if (this.state == "MAIN") { // when workout_pause poseModel stop classify
             if (!this.menu) {
                 console.log('create menu');
-                let name_menu_block = ['CLOSE MENU', 'START', 'TRAIN A MODEL', 'EXIT'];
+                let left_menu_block = ['START', 'CLOSE MENU'];
+                let right_menu_block = ['TRAIN A MODEL', 'EXIT'];
                 let rgb = {
-                    'r': 0,
+                    'r': 255,
                     'g': 255,
                     'b': 0
                 }
                 this.menu = new Menu(this.p5, 320, 0, 300); // Menu
                 this.menu.set_color(rgb);
-                this.menu.set_menu_blocks(name_menu_block);
+                this.menu.set_menu_blocks(left_menu_block, right_menu_block);
 
             } else { //menu created
                 this.menu.show(); //show menu
-                this.p5.fill(0, 255, 0);
+                this.p5.fill(255, 255, 0);
                 this.p5.textSize(40);
                 this.p5.textStyle(this.p5.BOLD);
                 this.p5.textAlign(this.p5.CENTER);
@@ -174,14 +211,14 @@ class Manager {
                 }
             }
         }
-        if (this.state == 'TRAIN A MODEL') { //todo
+        if (this.state == 'TRAIN A MODEL') { 
             if (!this.poseModel_manager.poseModel) {
                 console.log('new pose model');
                 let options = {
                     inputs: 34,
                     outputs: 3,
                     task: 'classification',
-                    // debug: true
+                    debug: true
                 };
                 this.poseModel_manager.new_poseModel(options); //new empty poseModel
             } else {
@@ -202,6 +239,7 @@ class Manager {
                     let poseModel_obj = this.poseModel_manager.getLastModel();
                     this.poseModel_manager.reset();
                     this.poseModel_manager.select_poseModel(poseModel_obj.name);
+                    console.log(poseModel_obj);
                     this.state = 'MAIN';
                 }
             }

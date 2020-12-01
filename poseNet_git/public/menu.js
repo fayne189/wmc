@@ -67,23 +67,43 @@ class Menu {
     set_menu_open() {
         this.is_menu_open = true;
     }
-    set_menu_blocks(list_menu_blocks) {
-        for (let i = 0; i < list_menu_blocks.length; i++) {
-            //setMenu
-            let menu_name = list_menu_blocks[i];
-            let rw = 180;
-            let rh = 120;
-            let x = 430;
-            let y = 10 + (i - 1) * (rh);
-            if (i == 0) { // close_menu
-                x = 10;
-                y = 10;
-                rh = rh;
+    set_menu_blocks(left_menu_blocks, right_menu_blocks = null) {
+        if (left_menu_blocks.length == 2 && right_menu_blocks == null) {
+            for (let i = 0; i < left_menu_blocks.length; i++) {
+                //setMenu
+                let menu_name = left_menu_blocks[i];
+                let rw = 180;
+                let rh = 120;
+                let x = 430;
+                let y = 10;
+                if (i == 0) {
+                    x = 10;
+                }
+                this.add_menu_block(new MenuBlock(this.p5, menu_name, x, y, rw, rh))
             }
-            this.add_menu_block(new MenuBlock(this.p5, menu_name, x, y, rw, rh))
+        } else {
+            for (let i = 0; i < left_menu_blocks.length; i++) {
+                //setMenu
+                let menu_name = left_menu_blocks[i];
+                let rw = 180;
+                let rh = 120;
+                let x = 10;
+                let y = 10 + i * (rh);
+                this.add_menu_block(new MenuBlock(this.p5, menu_name, x, y, rw, rh))
+            }
         }
+
+        if (right_menu_blocks != null) {
+            for (let i = 0; i < right_menu_blocks.length; i++) {
+                //setMenu
+                let menu_name = right_menu_blocks[i];
+                let rw = 180;
+                let rh = 120;
+                let x = 430;
+                let y = 10 + i * (rh);
+                this.add_menu_block(new MenuBlock(this.p5, menu_name, x, y, rw, rh))
+            }
+        }
+
     }
-
-
-
 }
