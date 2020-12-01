@@ -17,7 +17,8 @@ var test = function (p5) {
     // poseNet
     let options_poseNet = {
       inputResolution: 257,
-      maxPoseDetections: 1
+      maxPoseDetections: 1,
+      // architecture: 'ResNet50'
     }
     poseNet = ml5.poseNet(video, options_poseNet, () => console.log(poseNet));
     poseNet.on('pose', gotPoses)

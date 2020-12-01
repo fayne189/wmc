@@ -159,7 +159,7 @@ exports.post = (req, res) => {
     } = req.body;
     console.log(motion_name);
 
-    // db.query('INSERT INTO users SET ?', {
+    // db.query('UPDATE INTO users SET ?', {
     //     id: id,
     //     startDate: startDate,
     //     endDate: endDate,
