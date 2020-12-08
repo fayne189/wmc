@@ -5,7 +5,7 @@ class PoseModelStarter {
     this.model_loaded = false;
     this.pose1_confidence = 0;
     this.pose2_confidence = 0;
-    this.pose_confidence = 20;
+    this.pose_confidence = 15;
     this.motion_count = 0;
     this.pose1;
     this.pose2;
