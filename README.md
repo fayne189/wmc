@@ -12,7 +12,7 @@
 [try demo here](https://editor.p5js.org/neng5201314/present/3mnRCUHME) make sure your whole body show on the screen.
 
 项目完成，展示结果视频。
-[https://youtu.be/bdjgAKKz1qM](https://youtu.be/bdjgAKKz1qM)
+我上传了视频到[Youtobe](https://www.youtube.com/watch?v=frwx4odqeu4)上
 
  ## 目录
  * [1. 项目安装](#1)
