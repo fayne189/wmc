@@ -10,6 +10,10 @@
 你可以随意修改，不过代码有点乱就是了。
 
 [try demo here](https://editor.p5js.org/neng5201314/present/ptEcLMvXY) make sure your whole body show on the screen.
+
+项目完成，展示结果视频。
+[https://youtu.be/bdjgAKKz1qM](https://youtu.be/bdjgAKKz1qM)
+
  ## 目录
  * [1. 项目安装](#1)
 
@@ -65,8 +69,7 @@
 3. 动作二关键点数据收集阶段。（每次人体关键点坐标数据收集之前都会有3秒的动作准备时间和5秒的数据收集时间）
 4. 等待动作二分类模型训练完成，这里使用了ml5.js模块的默认分类模型。训练10个回合。
 
-项目完成，展示结果视频。
-[https://youtu.be/bdjgAKKz1qM](https://youtu.be/bdjgAKKz1qM)
+
  
 
 
