@@ -6,7 +6,12 @@ This project mainly refers to the poseNet series of sample tutorials in The Codi
 
 After a certain understanding, you can use poseNet for many interesting front-end developments. This project is also one of them. The ml5.js library used is based on Tensorflow.js, an open-source framework for machine learning related development on the browser. At the same time, with the p5.js drawing framework, it can display video images and draw the results of PostNet's human skeleton. 
 
-[see demo here](https://editor.p5js.org/neng5201314/sketches/ptEcLMvXY)
+[demo video](https://youtu.be/bdjgAKKz1qM)
+
+[demo here](https://editor.p5js.org/neng5201314/present/3mnRCUHME)
+
+[demo code here](https://editor.p5js.org/neng5201314/sketches/3mnRCUHME)
+
 you can edit the code if you want, but it's really a mess. 
 
 ## Table of Contents
