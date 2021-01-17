@@ -66,7 +66,7 @@
 4. 等待动作二分类模型训练完成，这里使用了ml5.js模块的默认分类模型。训练10个回合。
 
 项目完成，展示结果视频。
-
+[https://youtu.be/bdjgAKKz1qM](https://youtu.be/bdjgAKKz1qM)
  
 
 
