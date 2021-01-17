@@ -35,7 +35,7 @@ make sure your whole body show on the screen.
  
  3. 使用npm安装相关依赖后使用 npm start的方式
  
- 4. 在浏览器打开lockhost://8123
+ 4. 在浏览器打开localhost://8123
 
 <h2 id="2">2. 使用说明</h2> 
 1. 基本操作
