@@ -49,11 +49,11 @@ make sure your whole body show on the screen.
 
 <h2 id="3">3. 项目说明</h2> 
 
-<h3 id="31">3. 主要说明：</h3> 
+<h3 id="31">3.1 主要说明：</h3> 
 
 项目是本科毕业设计实现的小项目， 设计目的：为在家中训练的用户，提供实时动作计数功能。
 
-<h3 id="32">3.1 动作计数思路(Counting)：</h3> 
+<h3 id="32">3.2 动作计数思路(Counting)：</h3> 
 
 <div align="center">
 	<img src="https://github.com/neng5201314/teamPro_posenet/blob/master/MD_images/gif2.gif" alt="Editor" width="500">
@@ -63,7 +63,7 @@ make sure your whole body show on the screen.
 2. 根据的到的关键点坐标训练动作二分类模型
 3. 通过二分类模型中实时得到的分类结果来实现动作计数算法，动作一变化到动作二时计数器增加0.5，动作二回到动作一状态计算器增加0.5
 
-<h3 id="33">3. 人机交互思路(HCI)：</h3> 
+<h3 id="33">3.3 人机交互思路(HCI)：</h3> 
 
 <div align="center">
 	<img src="https://github.com/neng5201314/teamPro_posenet/blob/master/MD_images/gif1.gif" alt="Editor" width="500">
@@ -75,7 +75,7 @@ make sure your whole body show on the screen.
 4. 当触碰次数达到固定阈值，则判断用户点击按钮。
 
 
-<h3 id="34">3. 模型训练阶段的使用手册：</h3> 
+<h3 id="34">3.4 模型训练阶段的使用手册：</h3> 
 
 1. 点击画面上方的‘按钮’图案后，点击Train A Model‘按钮’进入训练模型阶段
 2. 动作一关键点数据收集阶段。（每次人体关键点坐标数据收集之前都会有3秒的动作准备时间和5秒的数据收集时间）
