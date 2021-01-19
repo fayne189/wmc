@@ -23,8 +23,8 @@ make sure your whole body show on the screen.
  * [3. 项目说明](#3)
 
    * [a. 主要说明](#31)
-   * [b. 动作计数思路](#32)
-   * [c. 人机交互思路](#33)
+   * [b. 动作计数思路(Counting)](#32)
+   * [c. 人机交互思路(HCI)](#33)
    * [d. 模型训练阶段的使用手册](#34)
 
 <h2 id="1">1. 项目安装</h2>
@@ -49,7 +49,7 @@ make sure your whole body show on the screen.
 
 项目是本科毕业设计实现的小项目， 设计目的：为在家中训练的用户，提供实时动作计数功能。
 
-<h3 id="32">3.1 动作计数思路：</h3> 
+<h3 id="32">3.1 动作计数思路(Counting)：</h3> 
 
 <div align="center">
 	<img src="https://github.com/neng5201314/teamPro_posenet/blob/master/MD_images/gif2.gif" alt="Editor" width="500">
@@ -59,7 +59,7 @@ make sure your whole body show on the screen.
 2. 根据的到的关键点坐标训练动作二分类模型
 3. 通过二分类模型中实时得到的分类结果来实现动作计数算法，动作一变化到动作二时计数器增加0.5，动作二回到动作一状态计算器增加0.5
 
-<h3 id="33">3. 人机交互思路：</h3> 
+<h3 id="33">3. 人机交互思路(HCI)：</h3> 
 
 <div align="center">
 	<img src="https://github.com/neng5201314/teamPro_posenet/blob/master/MD_images/gif1.gif" alt="Editor" width="500">
