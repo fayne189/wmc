@@ -1,5 +1,5 @@
 # teamPro_posenet
- Home Training App [README_ENG](README_ENG.md)
+ Home Training App 
  
  本项目主要参考了The Coding Train中的poseNet系列的示例教程，以下是系列视频的[链接](https://www.youtube.com/watch?v=OIo-DIOkNVg)
 
@@ -50,13 +50,21 @@ make sure your whole body show on the screen.
 项目是本科毕业设计实现的小项目， 设计目的：为在家中训练的用户，提供实时动作计数功能。
 
 <h3 id="32">3.1 动作计数思路：</h3> 
-[!gif1](teamPro_posenet/MD_images/gif1.gif){:height="50%" width="50%"}
+
+<div align="center">
+	<img src="https://github.com/neng5201314/teamPro_posenet/blob/master/MD_images/gif2.gif" alt="Editor" width="500">
+</div>
+
 1. 通过posenet模型提取人体姿态关键点。
 2. 根据的到的关键点坐标训练动作二分类模型
 3. 通过二分类模型中实时得到的分类结果来实现动作计数算法，动作一变化到动作二时计数器增加0.5，动作二回到动作一状态计算器增加0.5
 
 <h3 id="33">3. 人机交互思路：</h3> 
-[!gif2](teamPro_posenet/MD_images/gif2.gif =100x100)
+
+<div align="center">
+	<img src="https://github.com/neng5201314/teamPro_posenet/blob/master/MD_images/gif1.gif" alt="Editor" width="500">
+</div>
+
 1. 在视频中设计‘按钮’图案。
 2. 通过posenet得到手腕部分的关键点，通过估计计数得到手掌位置关键点。
 3. 通过计算手掌关键点坐标和图案中心点坐标的距离，但距离小于图案半径，则判断为用户触碰按钮
