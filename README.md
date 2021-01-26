@@ -10,13 +10,14 @@
  其中使用到的ml5.js库是基于Tensorflow.js的，能在浏览器上进行机器学习的相关开发的开源框架。
  同时搭配p5.js绘图框架能很好的展示视频图像和绘制poseNet的人体骨架结果。
  
-### [Sources Code On P5](https://editor.p5js.org/neng5201314/sketches/3mnRCUHME)
+## DEMO AND VIDEO
 
+[Sources Code On P5](https://editor.p5js.org/neng5201314/sketches/3mnRCUHME)
 
-### [Try Demo Here](https://editor.p5js.org/neng5201314/present/3mnRCUHME)
+[Try Demo Here](https://editor.p5js.org/neng5201314/present/3mnRCUHME)
 make sure your whole body show on the screen.
 
-### [Demo Video On Youtube](https://www.youtube.com/watch?v=frwx4odqeu4)
+[Demo Video On Youtube](https://www.youtube.com/watch?v=frwx4odqeu4)
 
  ## 目录
  * [1. 项目安装](#1)
