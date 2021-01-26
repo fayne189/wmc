@@ -1,4 +1,7 @@
 # teamPro_posenet
+
+[README IN KOREAN](https://github.com/neng5201314/teamPro_posenet/blob/master/README_KOREAN.md)
+
  Home Training App 
  
  本项目主要参考了The Coding Train中的poseNet系列的示例教程，以下是系列视频的[链接](https://www.youtube.com/watch?v=OIo-DIOkNVg)
