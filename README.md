@@ -1,4 +1,4 @@
-# teamPro_posenet
+# motion_counting_posenet
 
 [README IN KOREAN](https://github.com/neng5201314/teamPro_posenet/blob/master/README_KOREAN.md)
 
